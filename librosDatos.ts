@@ -13,22 +13,24 @@ export class Libro{
     }
   }
 
-
-
  export class GestorLibros{
-    //libro:Libro = {autor:"",titulo:"",genero:"",tipo:"",isbn:""};
     arrayLibros: Libro[];
     
     constructor(arregloLibro:Libro[]){
        this.arrayLibros=arregloLibro;
-       console.log("this.arrayLibros  "+this.arrayLibros);
     }
-    buscarLibroAutor(arregloLibro:Libro[],BuscarAutor:string){
-      
-        
+    buscarLibroAutor(BuscarAutor:string){
+        console.warn("***BUSCANDO LIBRO/S por AUTOR***");
+        for (let i = 0; i < this.arrayLibros.length; i=i+1) {   
+            if (this.arrayLibros[i].autor===BuscarAutor){
+                                            this.consultarLibro(i);
+            }
+        }
+
     }
+
     buscarLibroISBN(Buscarisbn:string):number{
-          console.log(this.arrayLibros.length);
+          console.warn("***BUSCANDO LIBRO por ISBN***");
           for (let i = 0; i < this.arrayLibros.length; i=i+1) {   
               if (this.arrayLibros[i].isbn===Buscarisbn){
                                      console.log("Libro ENCONTRADO..."+i);
@@ -39,24 +41,43 @@ export class Libro{
        return -1;
     }
 
-
     insertarLibro(nuevoLibro:any){ 
-     console.log("nuevoLibro "+nuevoLibro);
      this.arrayLibros.push(nuevoLibro);
-     console.log(this.arrayLibros);
- 
+     console.warn("***LIBRO INSERTADO***");
     }
-    consultarLibro(){
- 
+
+    consultarLibro(indice:number){
+        console.warn("***MOSTRANDO LIBRO***");
+        console.log("********************** LIBRO ************************");
+        console.log(`Titulo: ${this.arrayLibros[indice].titulo}`);
+        console.log(`Autor: ${this.arrayLibros[indice].autor}`);
+        console.log(`Tipo: ${this.arrayLibros[indice].tipo}`);
+        console.log(`Genero: ${this.arrayLibros[indice].genero}`);
+        console.log(`ISBN: ${this.arrayLibros[indice].isbn}`);
+        console.log("*****************************************************");
+    }
+
+    modificarLibro(libroModificado:any,posicion:number){
+        this.arrayLibros.splice(posicion,1,libroModificado);
+        console.warn("***LIBRO MODIFICADO***");
     }
  
-    modificarLibro(){
- 
+    eliminarLibro(posicion:number){
+        this.arrayLibros.splice(posicion,1);
+        console.warn("***LIBRO ELIMINADO***");
     }
- 
-    eliminarLibro(){
- 
- 
+
+    mostrarbiblioteca(){
+        console.warn("***MOSTRANDO BIBLIOTECA***");
+        this.arrayLibros.forEach(elemento=>{
+              console.log(elemento.titulo);
+              console.log(elemento.autor);
+              console.log(elemento.genero);
+              console.log(elemento.tipo);
+              console.log(elemento.isbn);
+              console.log("----------------------------");
+        })
+
     }
  }
 
